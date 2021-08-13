@@ -33,14 +33,24 @@ function setWebLists(r) {
 }
 
 function setImageLists(r) {
+	console.log(r);
 	$('.lists').empty().attr('class', 'lists image grid-wrap');
 	$('.lists').append('<li class="list grid-sizer"></li>');
 	r.forEach(function(v, i) {
-		var html = '<li class="list grid-item">';
+		var info = JSON.stringify({
+			collection: v.collection,
+			width: v.width,
+			height: v.height,
+			src: v.image_url,
+			name: v.display_sitename,
+			url: v.doc_url,
+			dt: v.datetime
+		});
+		var html = '<li class="list grid-item" data-info=\''+info+'\'>';
 		html += '<img src="'+v.thumbnail_url+'" class="w100">';
 		html += '<div class="info"></div>';
 		html += '</li>';
-		$(html).appendTo('.lists');
+		$(html).appendTo('.lists').click(onModalShow);
 	});
 	var $grid = $('.grid-wrap').masonry({
 		itemSelector: '.grid-item',
@@ -71,6 +81,16 @@ function setCafeLists(r) {
 
 
 /************** event callback ************/
+function onModalShow() {
+	console.log($(this).data('info'));
+	var v = $(this).data('info');
+	$('.modal-wrapper').show();
+	$('.modal-wrapper .img-wp img').attr('src', v.src);
+	$('.modal-wrapper .size-wp').html(v.width + ' x ' + v.height);
+	$('.modal-wrapper .name-wp').html(v.name);
+	$('.modal-wrapper .link').attr('href', v.url).html(v.url);
+}
+
 function onSubmit(e) {
 	e.preventDefault();
 	var cate = $(this).find('select[name="category"]').val().trim();
