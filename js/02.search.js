@@ -39,7 +39,7 @@ function setImageLists(r) {
 		var html = '<li class="list grid-item">';
 		html += '<img src="'+v.thumbnail_url+'" class="w100">';
 		html += '</li>';
-		$('.lists').append(html);
+		$(html).appendTo('.lists');
 	});
 	var $grid = $('.grid-wrap').masonry({
 		itemSelector: '.grid-item',
