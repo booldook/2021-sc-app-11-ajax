@@ -1,10 +1,11 @@
 /*************** global init **************/
 var auth = 'KakaoAK f17d0ae4d1d2ec94f5d272fd59b55b7f';
+var kakaoURL = 'https://dapi.kakao.com/';
 
 
 /************** user function *************/
 function getPath(cate) {
-	return 'https://dapi.kakao.com/'+(cate === 'book' ? 'v3' : 'v2')+'/search/'+cate;
+	return kakaoURL+(cate === 'book' ? 'v3' : 'v2')+'/search/'+cate;
 }
 
 function getParams(query) {
@@ -22,7 +23,7 @@ function setWebLists(r) {
 	$('.lists').empty();
 	r.forEach(function(v, i) {
 		var html = '<li class="list web">';
-		html += '<h3 class="title">'+v.title+'</h3>';
+		html += '<a class="title" href="'+v.url+'" target="_blank">'+v.title+'</a>';
 		html += '<p class="content">'+v.contents+'</p>';
 		html += '<a class="link" href="'+v.url+'" target="_blank">'+v.url+'</a>';
 		html += '<div class="dt">'+moment(v.datetime).format('YYYY-MM-DD HH:mm:ss')+'</div>';
