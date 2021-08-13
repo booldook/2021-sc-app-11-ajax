@@ -1,0 +1,25 @@
+!<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<link rel="stylesheet" href="../css/all.min.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/base.css">
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/moment.min.js"></script>
+	<script src="../js/lodash.min.js"></script>
+	<script src="../js/util.js"></script>
+</head>
+<body>
+	<img src="" class="img">
+	<script>
+		$('.img').attr('src', 'https://img2.sbs.co.kr/img/sbs_cms/WE/2020/07/09/WE64849959_ori.jpg');
+		$('.img').on('load', function() {
+			console.log( $(this).outerWidth(), $(this).outerHeight() );
+		})
+	</script>
+</body>
+</html>
