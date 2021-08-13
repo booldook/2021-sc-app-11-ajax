@@ -1,4 +1,11 @@
 /**************** global init ****************/
+.lists {border-top: 1px solid #dedede;}
+.lists .list {}
+.lists .list.web {color: #555; border-bottom: 1px solid #dedede; margin-bottom: 1em; padding: 1em 0;}
+.lists .list.web .title {font-size: 1.5em; color: #111; margin-bottom: .5em;}
+.lists .list.web .content {font-size: 1.125em; margin-bottom: .5em; line-height: 1.2;}
+.lists .list.web .link {color: #155daf; margin-bottom: .5em; display: block;}
+.lists .list.web .dt {}
 
 
 /**********************  *********************/

@@ -19,7 +19,7 @@ function setTotalCnt(cnt) {
 }
 
 function setWebLists(r) {
-	
+	// $('.lists').empty();
 }
 
 function setImageLists(r) {
