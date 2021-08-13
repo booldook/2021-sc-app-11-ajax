@@ -13,11 +13,14 @@
 
 .modal-wrapper {position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 2; background-color: rgba(0, 0, 0, .8); display: flex; justify-content: center; align-items: center;}
 .modal-wrapper .modal-wrap {background-color: #fff;}
-.modal-wrapper .modal-wrap .img-wp {position: relative; max-width: 80vw; max-height: 60vh; overflow-y: hidden;}
-.modal-wrapper .modal-wrap .img-wp .bt-close {position: absolute; background-color: rgba(255, 0, 0, .7); color: #fff; width: 40px; height: 40px; font-size: 24px; text-align: center; line-height: 40px;; cursor: pointer;}
+.modal-wrapper .modal-wrap .img-wp {position: relative;}
+.modal-wrapper .modal-wrap .img-wp img {max-width: 80vw; max-height: 60vh;}
+.modal-wrapper .modal-wrap .img-wp .bt-close {position: absolute; background-color: rgba(255, 0, 0, .7); color: #fff; width: 40px; height: 40px; font-size: 24px; text-align: center; line-height: 40px; cursor: pointer;}
 .modal-wrapper .modal-wrap .size-wp {font-size: .875em; color: #999;}
-.modal-wrapper .modal-wrap .name-wp {font-size: 1.25em; color: #111; text-decoration: underline;}
-.modal-wrapper .modal-wrap .link {color: #155daf; font-size: .875em;}
+.modal-wrapper .modal-wrap .name-wp {font-size: 1.25em; color: #111;}
+.modal-wrapper .modal-wrap .name-wp .name {text-decoration: underline;}
+.modal-wrapper .modal-wrap .link {color: #155daf; font-size: .875em; display: inline-block;}
+.modal-wrapper .modal-wrap .dt {color: #999; font-size: .875em;}
 
 /* .lists.image .list {width: 12.5%; border: 5px solid #fff; cursor: pointer; transition: all .5s; display: flex; position: relative;}
 .lists.image .list .info {width: 0; height: 100%; background-color: #fff; transition: all .35s; transition-delay: .5s; position: absolute; right: 0; transform: translate(100%);}
@@ -43,6 +46,9 @@
 
 @media (max-width: 767px) {
 	.lists.image .list {width: 33.3333%;}
+	.modal-wrapper .modal-wrap {width: 96%;}
+	.modal-wrapper .modal-wrap .img-wp img {max-width: 100%;}
+	.modal-wrapper .modal-wrap .img-wp .bt-close {right: 0;}
 }
 
 @media (max-width: 575px) {

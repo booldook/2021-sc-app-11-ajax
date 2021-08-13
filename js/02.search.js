@@ -42,6 +42,7 @@ function setImageLists(r) {
 			width: v.width,
 			height: v.height,
 			src: v.image_url,
+			thumb: v.thumbnail_url,
 			name: v.display_sitename,
 			url: v.doc_url,
 			dt: v.datetime
@@ -81,14 +82,20 @@ function setCafeLists(r) {
 
 
 /************** event callback ************/
+function onLoadError(el) {
+	$('.modal-wrapper .img-wp img').attr('src', $(el).data('thumb'));
+}
+
 function onModalShow() {
-	console.log($(this).data('info'));
 	var v = $(this).data('info');
 	$('.modal-wrapper').show();
 	$('.modal-wrapper .img-wp img').attr('src', v.src);
+	$('.modal-wrapper .img-wp img').data('thumb', v.thumb);
 	$('.modal-wrapper .size-wp').html(v.width + ' x ' + v.height);
-	$('.modal-wrapper .name-wp').html(v.name);
+	$('.modal-wrapper .collection').html('['+v.collection+'] ');
+	$('.modal-wrapper .name').html(v.name);
 	$('.modal-wrapper .link').attr('href', v.url).html(v.url);
+	$('.modal-wrapper .dt').html(moment(v.datetime).format('YYYY-MM-DD HH:mm:ss'));
 }
 
 function onSubmit(e) {
@@ -135,4 +142,3 @@ $('.search-form').submit(onSubmit);
 
 
 /*************** start init ***************/
-
