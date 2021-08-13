@@ -11,3 +11,7 @@ function zp(n) {
 	// else return n;
 	return (n < 10) ? '0'+n : n;
 }
+
+function numberFormat(v) {
+	return v.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
