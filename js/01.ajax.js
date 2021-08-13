@@ -1,4 +1,5 @@
-/* var xhr = new XMLHttpRequest();
+// Vanilla script ES5
+var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
 	if(xhr.status === 200 && xhr.readyState === 4) {
 		console.log(JSON.parse(xhr.responseText));
@@ -6,10 +7,11 @@ xhr.onreadystatechange = function() {
 }
 xhr.open('GET', 'https://dapi.kakao.com/v2/search/web?query=블랙핑크');
 xhr.setRequestHeader('Authorization', 'KakaoAK f17d0ae4d1d2ec94f5d272fd59b55b7f');
-xhr.send(); */
+xhr.send();
 
-/* jQuery.ajax({
-	url: 'https://dapi.kakao.com/v2/search/web',
+// jQuery Ajax
+$.ajax({
+	url: 'https://dapi.kakao.com/v2/search/image',
 	type: 'GET',
 	dataType: 'json',
 	data: { query: '블랙핑크' },
@@ -28,10 +30,12 @@ function onSuccess(v) {
 
 function onError(xhr, status, error) {
 	console.log(xhr, status, error);
-} */
+}
 
+
+// axios 
 axios
-.get('https://dapi.kakao.com/v2/search/web', {
+.get('https://dapi.kakao.com/v2/search/vclip', {
 	params: { query: '블랙핑크' },
 	headers: { Authorization: 'KakaoAK f17d0ae4d1d2ec94f5d272fd59b55b7f' }
 })
