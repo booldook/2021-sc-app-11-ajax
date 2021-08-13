@@ -48,6 +48,7 @@ function setImageLists(r) {
 	});
 	$grid.imagesLoaded().progress(function() {
 		$grid.masonry('layout');
+		$grid.masonry('reloadItems');
 	});
 }
 
