@@ -38,6 +38,7 @@ function setImageLists(r) {
 	r.forEach(function(v, i) {
 		var html = '<li class="list grid-item">';
 		html += '<img src="'+v.thumbnail_url+'" class="w100">';
+		html += '<div class="info"></div>';
 		html += '</li>';
 		$(html).appendTo('.lists');
 	});
