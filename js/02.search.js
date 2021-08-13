@@ -19,7 +19,16 @@ function setTotalCnt(cnt) {
 }
 
 function setWebLists(r) {
-	// $('.lists').empty();
+	$('.lists').empty();
+	r.forEach(function(v, i) {
+		var html = '<li class="list web">';
+		html += '<h3 class="title">'+v.title+'</h3>';
+		html += '<p class="content">'+v.contents+'</p>';
+		html += '<a class="link" href="'+v.url+'" target="_blank">'+v.url+'</a>';
+		html += '<div class="dt">'+moment(v.datetime).format('YYYY-MM-DD HH:mm:ss')+'</div>';
+		html += '</li>';
+		$('.lists').append(html);
+	});
 }
 
 function setImageLists(r) {
