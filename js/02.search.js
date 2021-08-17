@@ -1,3 +1,8 @@
+/*
+['홍길동', '홍길만', '홍길순'].join(', ')  -> "홍길동, 홍길만, 홍길순"
+'0000 0000'.replace(' ', ' / ');  ->  "0000 / 0000"
+*/
+
 /*************** global init **************/
 var auth = 'KakaoAK f17d0ae4d1d2ec94f5d272fd59b55b7f';
 var kakaoURL = 'https://dapi.kakao.com/';
@@ -105,32 +110,39 @@ function setClipLists(r) {
 }
 
 function setBookLists(r) {
-	$('.lists').empty().attr('class', 'lists clip');
+	$('.lists').empty().attr('class', 'lists book');
 	var html = '';
 	r.forEach(function(v, i) {
-		html += '<li class="list">';
+		var author = v.authors.join(', ');
+		var thumbnail = v.thumbnail !== '' ? v.thumbnail : 'http://via.placeholder.com/120x174/eee?text=No+image';
+		var translator = v.translators.join(', ');
+		var salePrice = v.sale_price > -1 ? numberFormat(v.sale_price)+'원' : '판매중지';
+		var isbn = v.isbn.replace(' ', ' / ');
+		var dt = moment(v.datetime).format('YYYY-MM-DD');
+		html  = '<li class="list">';
 		html += '<a class="title" href="'+v.url+'" target="_blank">'+v.title+'</a>';
 		html += '<div class="info-wrap">';
 		html += '<a class="thumb-wp" href="'+v.url+'" target="_blank">';
-		html += '<img src="'+v.thumbnail_url+'" alt="" class="w100">';
+		html += '<img src="'+thumbnail+'" alt="" class="w100">';
 		html += '</a>';
 		html += '<div class="info-wp">';
 		html += '<div class="authors">';
-		html += '<span class="author"></span>';
-		html += '<span class="translator">(역: )</span>';
+		html += '<span class="author">'+author+'</span>';
+		if(v.translators.length) html += '<span class="translator"> (역: '+translator+')</span>';
 		html += '</div>';
 		html += '<div class="prices">';
-		html += '<span class="price"></span>';
-		html += '<span class="sale-price"></span>';
-		html += '<span class="status">[]</span>';
+		html += '<span class="price">'+numberFormat(v.price)+'</span> | ';
+		html += '<span class="sale-price">'+salePrice+'</span>';
+		if(v.status) html += '<span class="status"> ['+v.status+']</span>';
 		html += '</div>';
-		html += '<div class="publisher"></div>';
-		html += '<div class="isbn"></div>';
-		html += '<div class="dt"></div>';
+		html += '<div class="publisher">'+v.publisher+'</div>';
+		html += '<div class="isbn">'+isbn+'</div>';
+		html += '<div class="dt">'+dt+'</div>';
 		html += '</div>';
 		html += '</div>';
-		html += '<a class="content" href="" target="_blank"></a>';
+		html += '<a class="content" href="'+v.url+'" target="_blank">'+v.contents+'</a>';
 		html += '</li>';
+		$('.lists').append(html);
 	});
 }
 

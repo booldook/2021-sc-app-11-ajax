@@ -86,6 +86,10 @@
 
 @media (max-width: 767px) {
 	.lists.image .list {width: 33.3333%;}
+
+	.lists.book .list {width: 100%;}
+	.lists.book .list:nth-child(odd) {border-right: none;}	
+
 	.modal-wrapper .modal-wrap {width: 96%;}
 	.modal-wrapper .modal-wrap .img-wp img {max-width: 100%;}
 	.modal-wrapper .modal-wrap .img-wp .bt-close {right: 0;}
