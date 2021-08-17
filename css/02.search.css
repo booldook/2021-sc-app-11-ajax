@@ -58,7 +58,10 @@
 .lists.cafe .list .contents .link {font-size: 1em; color: #03378a; margin-bottom: .325em; display: inline-block;} 
 .lists.cafe .list .contents .dt {font-size: .875em; color: #999; display: block;} 
 
-
+.pager-wrap {display: flex; justify-content: center; margin: 2em 0;}
+.pager-wrap a {width: 32px; height: 32px; border: 1px solid #ccc; text-align: center; line-height: 30px; margin-right: -1px; text-decoration: none;}
+.pager-wrap .bt-page.active {background-color: #333; color: #fff;}
+.pager-wrap a:not(.bt-page) {background-color: #efefef;}
 
 .modal-wrapper {position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 2; background-color: rgba(0, 0, 0, .8); display: flex; justify-content: center; align-items: center;}
 .modal-wrapper .modal-wrap {background-color: #fff;}
