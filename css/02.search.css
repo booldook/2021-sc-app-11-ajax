@@ -32,6 +32,23 @@
 .lists.clip .list .contents .link {font-size: 1em; color: #03378a; margin-bottom: .325em; display: inline-block;} 
 .lists.clip .list .contents .dt {font-size: .875em; color: #999; display: block;} 
 
+.lists.book {display: flex; flex-wrap: wrap;}
+.lists.book .list {width: 50%; padding: 2em; border-bottom: 1px solid #dedede;}
+.lists.book .list:nth-child(odd) {border-right: 1px solid #dedede;}
+.lists.book .title {font-size: 1.25em; color: #03378a; margin-bottom: .75em; display: inline-block;}
+.lists.book .info-wrap {display: flex; margin-bottom: 1em;}
+.lists.book .thumb-wp {width: 130px; padding: 4px; border: 1px solid #96b8ee;}
+.lists.book .info-wp {width: calc(100% - 130px); padding-left: 1.5em;}
+.lists.book .info-wp .authors {margin-bottom: .75em;}
+.lists.book .info-wp .prices {margin-bottom: .625em;}
+.lists.book .info-wp .prices .price {color: #999; text-decoration: line-through;}
+.lists.book .info-wp .prices .sale-price {font-size: 1.125em; color: #03378a;}
+.lists.book .info-wp .prices .status {color: #999;}
+.lists.book .info-wp .publisher {margin-bottom: .75em;}
+.lists.book .info-wp .isbn {margin-bottom: .75em; color: #999;}
+.lists.book .info-wp .dt {margin-bottom: .75em; color: #999;}
+.lists.book .content {color: #444; line-height: 1.25;}
+
 
 
 .modal-wrapper {position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 2; background-color: rgba(0, 0, 0, .8); display: flex; justify-content: center; align-items: center;}
