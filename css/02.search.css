@@ -49,6 +49,16 @@
 .lists.book .info-wp .dt {margin-bottom: .75em; color: #999;}
 .lists.book .content {color: #444; line-height: 1.25;}
 
+.lists.cafe {}
+.lists.cafe .list {display: flex; padding: 1em; border-bottom: 1px solid #dedede;}
+.lists.cafe .list .thumbs {width: 140px; padding: 4px; border: 1px solid #96b8ee;}
+.lists.cafe .list .contents {width: calc(100% - 140px); padding-left: 1.5em;}
+.lists.cafe .list .contents .title {font-size: 1.25em; color: #03378a; margin-bottom: .5em; display: inline-block;}
+.lists.cafe .list .contents .content {font-size: 1em; line-height: 1.25; color: #777; margin-bottom: .75em;}
+.lists.cafe .list .contents .name {font-size: 1em; color: #03378a; margin-bottom: .325em; display: inline-block;} 
+.lists.cafe .list .contents .link {font-size: 1em; color: #03378a; margin-bottom: .325em; display: inline-block;} 
+.lists.cafe .list .contents .dt {font-size: .875em; color: #999; display: block;} 
+
 
 
 .modal-wrapper {position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 2; background-color: rgba(0, 0, 0, .8); display: flex; justify-content: center; align-items: center;}

@@ -147,7 +147,22 @@ function setBookLists(r) {
 }
 
 function setCafeLists(r) {
-	console.log(r);
+	$('.lists').empty().attr('class', 'lists cafe');
+	var html = '';
+	r.forEach(function(v, i) {
+		html  = '<li class="list">';
+		html += '<a class="thumbs" href="'+v.url+'" target="_blank">';
+		html += '<img src="'+v.thumbnail+'" alt="'+v.title+'" class="w100">';
+		html += '</a>';
+		html += '<div class="contents">';
+		html += '<a class="title" href="'+v.url+'" target="_blank">'+v.title+'</a>';
+		html += '<p class="content">'+v.contents+'</p>';
+		html += '<a class="name" href="'+v.url+'" target="_blank">'+v.cafename+'</a> | <a href="'+v.url+'" class="link" target="_blank">'+v.url+'</a>';
+		html += '<div class="dt">'+moment(v.datetime).format('YYYY-MM-DD HH:mm:ss')+'</div>';
+		html += '</div>';
+		html += '</li>';
+		$('.lists').append(html);
+	});
 }
 
 
