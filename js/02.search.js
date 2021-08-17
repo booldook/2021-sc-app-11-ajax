@@ -32,8 +32,20 @@ function setWebLists(r) {
 	});
 }
 
+function setBlogLists(r) {
+	$('.lists').empty().attr('class', 'lists blog');
+	r.forEach(function(v, i) {
+		var html = '<li class="list">';
+		html += '<a class="title" href="'+v.url+'" target="_blank">'+v.title+'</a>';
+		html += '<p class="content">'+v.contents+'</p>';
+		html += '<a class="link" href="'+v.url+'" target="_blank">'+v.url+'</a>';
+		html += '<div class="dt">'+moment(v.datetime).format('YYYY-MM-DD HH:mm:ss')+'</div>';
+		html += '</li>';
+		$('.lists').append(html);
+	});
+}
+
 function setImageLists(r) {
-	console.log(r);
 	$('.lists').empty().attr('class', 'lists image grid-wrap');
 	$('.lists').append('<li class="list grid-sizer"></li>');
 	r.forEach(function(v, i) {
@@ -63,6 +75,8 @@ function setImageLists(r) {
 		$grid.masonry('reloadItems');
 	});
 }
+
+
 
 function setClipLists(r) {
 	console.log(r);
@@ -102,10 +116,14 @@ function onSubmit(e) {
 	e.preventDefault();
 	var cate = $(this).find('select[name="category"]').val().trim();
 	var query = $(this).find('input[name="query"]').val().trim();
-	axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
+	if(cate && cate !== '' && query && query !== '')
+		axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
+	else
+		$(this).find('input[name="query"]').focus();
 }
 
 function onSuccess(res) {
+	console.log(res);
 	var cate = res.config.url.split('/').pop();
 	var v = res.data;
 	setTotalCnt(v.meta.total_count);
