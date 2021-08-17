@@ -105,7 +105,33 @@ function setClipLists(r) {
 }
 
 function setBookLists(r) {
-	console.log(r);
+	$('.lists').empty().attr('class', 'lists clip');
+	var html = '';
+	r.forEach(function(v, i) {
+		html += '<li class="list">';
+		html += '<a class="title" href="'+v.url+'" target="_blank">'+v.title+'</a>';
+		html += '<div class="info-wrap">';
+		html += '<a class="thumb-wp" href="'+v.url+'" target="_blank">';
+		html += '<img src="'+v.thumbnail_url+'" alt="" class="w100">';
+		html += '</a>';
+		html += '<div class="info-wp">';
+		html += '<div class="authors">';
+		html += '<span class="author"></span>';
+		html += '<span class="translator">(역: )</span>';
+		html += '</div>';
+		html += '<div class="prices">';
+		html += '<span class="price"></span>';
+		html += '<span class="sale-price"></span>';
+		html += '<span class="status">[]</span>';
+		html += '</div>';
+		html += '<div class="publisher"></div>';
+		html += '<div class="isbn"></div>';
+		html += '<div class="dt"></div>';
+		html += '</div>';
+		html += '</div>';
+		html += '<a class="content" href="" target="_blank"></a>';
+		html += '</li>';
+	});
 }
 
 function setCafeLists(r) {
