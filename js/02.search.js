@@ -83,7 +83,25 @@ function setImageLists(r) {
 }
 
 function setClipLists(r) {
-	console.log(r);
+	$('.lists').empty().attr('class', 'lists clip');
+	var html = '';
+	r.forEach(function(v, i) {
+		html  = '<li class="list">';
+		html += '<a class="thumbs" href="'+v.url+'">';
+		html += ' <img src="'+v.thumbnail+'" alt="'+v.title+'" class="w100">';
+		html += '</a>';
+		html += '<div class="contents">';
+		html += ' <a class="title" href="'+v.url+'">'+v.title+'</a>';
+		html += ' <div>';
+		html += '  <a class="author" href="'+v.url+'">'+v.author+'</a> | ';
+		html += '  <span class="play-time">'+getPlayTime(v.play_time)+'</span>';
+		html += ' </div>';
+		html += ' <a href="'+v.url+'" class="link">'+v.url+'</a>';
+		html += ' <div class="dt">'+moment(v.datetime).format('YYYY-MM-DD HH:mm:ss')+'</div>';
+		html += '</div>';
+		html += '</li>';
+		$('.lists').append(html);
+	});
 }
 
 function setBookLists(r) {
