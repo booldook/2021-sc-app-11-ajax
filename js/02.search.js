@@ -173,19 +173,33 @@ function setPager(isEnd, totalRecord) {
 	var pagerCnt = 5;			// pager에 보여질 페이지 수
 	var startPage;				// pager의 시작 번호
 	var endPage;					// pager의 마지막 번호
-	var page = 4;
 	startPage = Math.floor((page - 1) / pagerCnt) * pagerCnt + 1;
 	endPage = startPage + pagerCnt - 1;
 	if(endPage > totalPage) endPage = totalPage;
 	
-	$('.pager-wrap .bt-page').remove();
+	console.log('totalPage: ', totalPage, 'startPage: ', startPage, 'endPage: ', endPage, 'page: ', page);
+	$('.pager-wrap .bt-page').remove(); // el가 삭제되면 이벤트도 삭제된다.
 	for(var i=startPage; i<=endPage; i++) {
 		// $('.pager-wrap .bt-next').before('<a href="#" class="bt-page">'+i+'</a>');
-		$('<a href="#" class="bt-page">'+i+'</a>').insertBefore('.pager-wrap .bt-next');
+		if(i === page) 
+			$('<i class="bt-page active" data-page="'+i+'">'+i+'</i>').insertBefore('.pager-wrap .bt-next').click(onPagerClick);
+		else
+			$('<i class="bt-page" data-page="'+i+'">'+i+'</i>').insertBefore('.pager-wrap .bt-next').click(onPagerClick);
 	}
+	$('.pager-wrap .bt-first')[0].dataset['page'] = 1;
+	$('.pager-wrap .bt-pager-prev')[0].dataset['page'] = startPage === 1 ? 1 : startPage - 1;
+	$('.pager-wrap .bt-prev')[0].dataset['page'] = page === 1 ? 1 : page - 1;
+	$('.pager-wrap .bt-next')[0].dataset['page'] = page === totalPage ? totalPage : page + 1;
+	$('.pager-wrap .bt-pager-next')[0].dataset['page'] = endPage === totalPage ? endPage : endPage + 1;
+	$('.pager-wrap .bt-last')[0].dataset['page'] = totalPage;
 }
 
 /************** event callback ************/
+function onPagerClick() {
+	page = $(this).data('page');
+	axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
+}
+
 function onLoadError(el) {
 	$('.modal-wrapper .img-wp img').attr('src', $(el).data('thumb'));
 }
@@ -248,6 +262,12 @@ function onError(err) {
 
 /*************** event init ***************/
 $('.search-form').submit(onSubmit);
+$('.pager-wrap .bt-first').click(onPagerClick);
+$('.pager-wrap .bt-pager-prev').click(onPagerClick);
+$('.pager-wrap .bt-prev').click(onPagerClick);
+$('.pager-wrap .bt-next').click(onPagerClick);
+$('.pager-wrap .bt-pager-next').click(onPagerClick);
+$('.pager-wrap .bt-last').click(onPagerClick);
 
 
 /*************** start init ***************/
