@@ -61,6 +61,7 @@ function setBlogLists(r) {
 function setImageLists(r) {
 	$('.pager-wrap').hide();
 	if(page === 1) {
+		$('.grid-wrap').masonry('destroy');
 		$('.lists').empty().attr({'class': 'lists image grid-wrap', 'style': ''});
 		$('.lists').append('<li class="list grid-sizer"></li>');
 	}
