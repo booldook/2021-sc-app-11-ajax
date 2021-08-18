@@ -8,6 +8,7 @@ var auth = 'KakaoAK f17d0ae4d1d2ec94f5d272fd59b55b7f';
 var kakaoURL = 'https://dapi.kakao.com/';
 var cate, query, page = 1;
 var size = { web: 10, blog: 10, book: 10, cafe: 10, vclip: 15, image: 80 }
+var observer;
 
 /************** user function *************/
 function getPath(cate) {
@@ -89,6 +90,7 @@ function setImageLists(r) {
 }
 
 function setClipLists(r) {
+	$('.pager-wrap').hide();
 	$('.lists').empty().attr({'class': 'lists clip', 'style': ''});
 	var html = '';
 	r.forEach(function(v, i) {
@@ -108,6 +110,9 @@ function setClipLists(r) {
 		html += '</li>';
 		$('.lists').append(html);
 	});
+	$('.lists').append('<li class="observer"></li>');
+	observer = new IntersectionObserver(onIntersection, {});
+	observer.observe(document.querySelector('.lists .observer'));
 }
 
 function setBookLists(r) {
@@ -167,6 +172,9 @@ function setCafeLists(r) {
 }
 
 function setPager(isEnd, totalRecord) {
+	$('.pager-wrap').show();
+	// if(observer) observer.unobserve(document.querySelector('.lists .observer'));
+
 	page = Number(page);
 	var totalPage = Math.ceil(totalRecord/size[cate]); // 총 페이지수
 	if(totalPage > 50) totalPage = 50;
@@ -214,7 +222,17 @@ function setPager(isEnd, totalRecord) {
 		$('.pager-wrap .bt-last').attr('disabled', false)[0].dataset['page'] = totalPage;
 }
 
+function setIntersection() {
+	
+}
+
 /************** event callback ************/
+function onIntersection(el) {
+	el.forEach(function(v, i) {
+		console.log(v.isIntersecting);
+	});
+}
+
 function onPagerClick() {
 	page = Number(this.dataset['page']);
 	axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
@@ -251,7 +269,7 @@ function onSuccess(res) {
 	var cateStr = res.config.url.split('/').pop();
 	var v = res.data;
 	setTotalCnt(v.meta.pageable_count);
-	setPager(v.meta.is_end, v.meta.pageable_count);
+	if(cate !== 'vclip' || cate !== 'image') setPager(v.meta.is_end, v.meta.pageable_count);
 	switch(cateStr) {
 		case 'web':
 			setWebLists(v.documents);

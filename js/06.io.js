@@ -25,6 +25,7 @@ observer.observe(document.querySelector('.wrapper'));
 function onIntersection(el, observer) {
 	el.forEach(function(v, i) {
 		if(v.isIntersecting) {
+			// observer.unobserve(v.target);
 			if(v.intersectionRatio < .25) {
 				$(v.target).css('background-color', 'red');
 			}
@@ -40,6 +41,7 @@ function onIntersection(el, observer) {
 		}
 		else {
 			$(v.target).css('background-color', 'beige');
+			console.log(observer);
 		}
 		console.log(v.isIntersecting);
 	});
