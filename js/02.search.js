@@ -23,7 +23,7 @@ function getParams(query) {
 }
 
 function setTotalCnt(cnt) {
-	$('.result-cnt').html(numberFormat(cnt));
+	$('.result-cnt').html(numeral(cnt).format('0,0'));
 }
 
 function setWebLists(r) {

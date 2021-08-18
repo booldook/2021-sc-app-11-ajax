@@ -13,7 +13,7 @@ function zp(n) {
 }
 
 function numberFormat(v) {
-	return v.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	// return v.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function getPlayTime(s) {
