@@ -172,9 +172,8 @@ function setCafeLists(r) {
 
 function setPager(totalRecord) {
 	$('.pager-wrap').show();
+	if(observer && $('.observer')[0]) observer.unobserve($('.observer')[0]);
 	$('.observer').remove();
-	// if(observer && document.querySelector('.observer')) 
-	// 	observer.unobserve(document.querySelector('.observer'));
 
 	page = Number(page);
 	var totalPage = Math.ceil(totalRecord/size[cate]); // 총 페이지수
@@ -230,7 +229,8 @@ function onIntersection(el) {
 		axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
 	}
 	if(isEnd == true) {
-		// observer.unobserve(document.)
+		if(observer && $('.observer')[0]) observer.unobserve($('.observer')[0]);
+		$('.observer').remove();
 	}
 }
 
@@ -298,6 +298,8 @@ function onSuccess(res) {
 
 function onError(err) {
 	console.log(err);
+	if(observer && $('.observer')[0]) observer.unobserve($('.observer')[0]);
+	$('.observer').remove();
 }
 
 
