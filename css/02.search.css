@@ -1,5 +1,5 @@
 /**************** global init ****************/
-body {height: 10000px;}
+body {padding-bottom: 200px;}
 .lists {border-top: 1px solid #dedede; overflow-wrap: break-word;}
 .lists .link {width: 100%;}
 .lists.web .list {color: #555; border-bottom: 1px solid #dedede; margin-bottom: 1em; padding: 1em 0;}

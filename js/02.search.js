@@ -81,7 +81,7 @@ function setImageLists(r) {
 		$(html).appendTo('.lists').click(onModalShow);
 	});
 	// Observer 처리
-	$('.lists').after('<li class="observer"></li>');
+	$('.lists').after('<div class="observer d-flex justify-content-center py-5"><i class="fa fa-spin fa-spinner fa-2x"></i></div>');
 	observer = new IntersectionObserver(onIntersection, {threshold: 1});
 	observer.observe(document.querySelector('.observer'));
 }
@@ -109,7 +109,7 @@ function setClipLists(r) {
 		$('.lists').append(html);
 	});
 	// Observer 처리
-	$('.lists').after('<div class="observer"></div>');
+	$('.lists').after('<div class="observer d-flex justify-content-center py-5"><i class="fa fa-spin fa-spinner fa-2x"></i></div>');
 	observer = new IntersectionObserver(onIntersection, {threshold: 1});
 	observer.observe(document.querySelector('.observer'));
 }
@@ -172,8 +172,9 @@ function setCafeLists(r) {
 
 function setPager(totalRecord) {
 	$('.pager-wrap').show();
-	if(observer && document.querySelector('.lists .observer')) 
-		observer.unobserve(document.querySelector('.lists .observer'));
+	$('.observer').remove();
+	// if(observer && document.querySelector('.observer')) 
+	// 	observer.unobserve(document.querySelector('.observer'));
 
 	page = Number(page);
 	var totalPage = Math.ceil(totalRecord/size[cate]); // 총 페이지수
