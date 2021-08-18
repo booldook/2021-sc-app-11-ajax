@@ -7,8 +7,8 @@ body {height: 10000px;}
 .lists.web .list .content {font-size: 1.125em; margin-bottom: .5em; line-height: 1.2;}
 .lists.web .list .link {color: #155daf; margin-bottom: .5em; display: inline-block; width: 100%;}
 
-.lists.image {z-index: 1;}
-.lists.image .list {width: 12.5%; border: 5px solid #fff; cursor: pointer; transition: all .5s;}
+.lists.image {z-index: 1; display: flex; flex-wrap: wrap;}
+.lists.image .list {width: 12.5%; border: 5px solid #fff; cursor: pointer;}
 .lists.image .list:hover {border-color: #548308; transform: scale(1.5); box-shadow: 0 0 10px rgba(0, 0, 0, .4); z-index: 9;}
 
 .lists.blog {}
