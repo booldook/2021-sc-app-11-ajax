@@ -23,7 +23,7 @@ function getParams(query) {
 }
 
 function setTotalCnt(cnt) {
-	$('.result-cnt').html(numberFormat(cnt));
+	$('.result-cnt').html(numeral(cnt).format('0,0'));
 }
 
 function setWebLists(r) {
@@ -84,7 +84,7 @@ function setImageLists(r) {
 		$(html).appendTo('.lists').click(onModalShow);
 	});
 	// Observer 처리
-	$('.lists').after('<li class="observer"></li>');
+	$('.lists').after('<div class="observer d-flex justify-content-center py-5"><i class="fa fa-spin fa-spinner fa-2x"></i></div>');
 	observer = new IntersectionObserver(onIntersection, {threshold: 1});
 	observer.observe(document.querySelector('.observer'));
 
@@ -122,7 +122,7 @@ function setClipLists(r) {
 		$('.lists').append(html);
 	});
 	// Observer 처리
-	$('.lists').after('<div class="observer"></div>');
+	$('.lists').after('<div class="observer d-flex justify-content-center py-5"><i class="fa fa-spin fa-spinner fa-2x"></i></div>');
 	observer = new IntersectionObserver(onIntersection, {threshold: 1});
 	observer.observe(document.querySelector('.observer'));
 }
@@ -134,7 +134,7 @@ function setBookLists(r) {
 		var author = v.authors.join(', ');
 		var thumbnail = v.thumbnail !== '' ? v.thumbnail : 'http://via.placeholder.com/120x174/eee?text=No+image';
 		var translator = v.translators.join(', ');
-		var salePrice = v.sale_price > -1 ? numberFormat(v.sale_price)+'원' : '판매중지';
+		var salePrice = v.sale_price > -1 ? numeral(v.sale_price).format('0,0')+'원' : '판매중지';
 		var isbn = v.isbn.replace(' ', ' / ');
 		var dt = moment(v.datetime).format('YYYY-MM-DD');
 		html  = '<li class="list">';
@@ -149,7 +149,7 @@ function setBookLists(r) {
 		if(v.translators.length) html += '<span class="translator"> (역: '+translator+')</span>';
 		html += '</div>';
 		html += '<div class="prices">';
-		html += '<span class="price">'+numberFormat(v.price)+'</span> | ';
+		html += '<span class="price">'+numeral(v.price).format('0,0')+'</span> | ';
 		html += '<span class="sale-price">'+salePrice+'</span>';
 		if(v.status) html += '<span class="status"> ['+v.status+']</span>';
 		html += '</div>';
@@ -185,8 +185,8 @@ function setCafeLists(r) {
 
 function setPager(totalRecord) {
 	$('.pager-wrap').show();
-	if(observer && document.querySelector('.lists .observer')) 
-		observer.unobserve(document.querySelector('.lists .observer'));
+	if(observer && $('.observer')[0]) observer.unobserve($('.observer')[0]);
+	$('.observer').remove();
 
 	page = Number(page);
 	var totalPage = Math.ceil(totalRecord/size[cate]); // 총 페이지수
@@ -242,7 +242,8 @@ function onIntersection(el) {
 		axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
 	}
 	if(isEnd == true) {
-		// observer.unobserve(document.)
+		if(observer && $('.observer')[0]) observer.unobserve($('.observer')[0]);
+		$('.observer').remove();
 	}
 }
 
@@ -310,6 +311,8 @@ function onSuccess(res) {
 
 function onError(err) {
 	console.log(err);
+	if(observer && $('.observer')[0]) observer.unobserve($('.observer')[0]);
+	$('.observer').remove();
 }
 
 
