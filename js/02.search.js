@@ -6,7 +6,7 @@
 /*************** global init **************/
 var auth = 'KakaoAK f17d0ae4d1d2ec94f5d272fd59b55b7f';
 var kakaoURL = 'https://dapi.kakao.com/';
-var cate, query, page = 1;
+var cate, query, isEnd = false, page = 1;
 var size = { web: 10, blog: 10, book: 10, cafe: 10, vclip: 15, image: 80 }
 var observer;
 
@@ -59,8 +59,13 @@ function setBlogLists(r) {
 }
 
 function setImageLists(r) {
-	$('.lists').empty().attr({'class': 'lists image grid-wrap', 'style': ''});
-	$('.lists').append('<li class="list grid-sizer"></li>');
+	$('.pager-wrap').hide();
+	if(page === 1) {
+		$('.lists').empty().attr({'class': 'lists image grid-wrap', 'style': ''});
+		$('.lists').append('<li class="list grid-sizer"></li>');
+	}
+	else $('.observer').remove();
+	
 	r.forEach(function(v, i) {
 		var info = JSON.stringify({
 			collection: v.collection,
@@ -78,12 +83,17 @@ function setImageLists(r) {
 		html += '</li>';
 		$(html).appendTo('.lists').click(onModalShow);
 	});
+	// Observer 처리
+	$('.lists').after('<li class="observer"></li>');
+	observer = new IntersectionObserver(onIntersection, {threshold: 1});
+	observer.observe(document.querySelector('.observer'));
+
 	var $grid = $('.grid-wrap').masonry({
 		itemSelector: '.grid-item',
 		columnWidth: '.grid-sizer',
 		percentPosition: true
 	});
-	$grid.imagesLoaded().progress(function() {
+	$grid.imagesLoaded().done(function() {
 		$grid.masonry('layout');
 		$grid.masonry('reloadItems');
 	});
@@ -91,7 +101,8 @@ function setImageLists(r) {
 
 function setClipLists(r) {
 	$('.pager-wrap').hide();
-	$('.lists').empty().attr({'class': 'lists clip', 'style': ''});
+	if(page === 1) $('.lists').empty().attr({'class': 'lists clip', 'style': ''});
+	else $('.observer').remove();
 	var html = '';
 	r.forEach(function(v, i) {
 		html  = '<li class="list">';
@@ -110,9 +121,10 @@ function setClipLists(r) {
 		html += '</li>';
 		$('.lists').append(html);
 	});
-	$('.lists').append('<li class="observer"></li>');
-	observer = new IntersectionObserver(onIntersection, {});
-	observer.observe(document.querySelector('.lists .observer'));
+	// Observer 처리
+	$('.lists').after('<div class="observer"></div>');
+	observer = new IntersectionObserver(onIntersection, {threshold: 1});
+	observer.observe(document.querySelector('.observer'));
 }
 
 function setBookLists(r) {
@@ -171,9 +183,10 @@ function setCafeLists(r) {
 	});
 }
 
-function setPager(isEnd, totalRecord) {
+function setPager(totalRecord) {
 	$('.pager-wrap').show();
-	// if(observer) observer.unobserve(document.querySelector('.lists .observer'));
+	if(observer && document.querySelector('.lists .observer')) 
+		observer.unobserve(document.querySelector('.lists .observer'));
 
 	page = Number(page);
 	var totalPage = Math.ceil(totalRecord/size[cate]); // 총 페이지수
@@ -222,15 +235,15 @@ function setPager(isEnd, totalRecord) {
 		$('.pager-wrap .bt-last').attr('disabled', false)[0].dataset['page'] = totalPage;
 }
 
-function setIntersection() {
-	
-}
-
 /************** event callback ************/
 function onIntersection(el) {
-	el.forEach(function(v, i) {
-		console.log(v.isIntersecting);
-	});
+	if(el[el.length - 1].isIntersecting && isEnd === false) {
+		page = Number(page) + 1;
+		axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
+	}
+	if(isEnd == true) {
+		// observer.unobserve(document.)
+	}
 }
 
 function onPagerClick() {
@@ -258,6 +271,7 @@ function onSubmit(e) {
 	e.preventDefault();
 	cate = $(this).find('select[name="category"]').val().trim();
 	query = $(this).find('input[name="query"]').val().trim();
+	page = 1;
 	if(cate && cate !== '' && query && query !== '')
 		axios.get(getPath(cate), getParams(query)).then(onSuccess).catch(onError);
 	else
@@ -269,7 +283,8 @@ function onSuccess(res) {
 	var cateStr = res.config.url.split('/').pop();
 	var v = res.data;
 	setTotalCnt(v.meta.pageable_count);
-	if(cate !== 'vclip' || cate !== 'image') setPager(v.meta.is_end, v.meta.pageable_count);
+	isEnd = v.meta.is_end;
+	if(cate !== 'vclip' || cate !== 'image') setPager(v.meta.pageable_count);
 	switch(cateStr) {
 		case 'web':
 			setWebLists(v.documents);
